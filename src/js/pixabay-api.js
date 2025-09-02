@@ -34,14 +34,9 @@ export default function getImagesByQuery(query) {
       return response.json();
     })
     .then(data => {
-      //   console.log(data);
-      //   console.log(data.hits[0]);
-      //   console.log(Object.keys(data.hits[0]));
       return data.hits;
     })
     .catch(err => {
       return err;
     });
 }
-
-// getImagesByQuery('duck');

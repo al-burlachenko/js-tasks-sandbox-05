@@ -10,25 +10,15 @@ import {
   hideLoader,
 } from './js/render-functions';
 
-// console.log(
-//   getImagesByQuery,
-//   createGallery,
-//   clearGallery,
-//   showLoader,
-//   hideLoader
-// );
-
 const formNode = document.querySelector('.form');
 
 formNode.addEventListener('submit', evt => {
   evt.preventDefault();
   clearGallery();
   showLoader();
-
   const formData = new FormData(evt.currentTarget);
   let input = '';
   formData.forEach((value, name) => {
-    console.log(name + ': ', value);
     input = value;
   });
   if (input.trim() === '') {
@@ -36,11 +26,11 @@ formNode.addEventListener('submit', evt => {
       title: 'Fuck me!',
       message: 'Input is empty, bitch!',
     });
+    hideLoader();
     return;
   }
-  //   console.log(getImagesByQuery(input));
+
   getImagesByQuery(input).then(elem => {
-    console.log(elem);
     if (elem.length !== 0) {
       hideLoader();
       createGallery(elem);
@@ -55,7 +45,3 @@ formNode.addEventListener('submit', evt => {
     });
   });
 });
-
-// formNode.addEventListener('input', evt => {
-//   console.log(evt.target.value);
-// });

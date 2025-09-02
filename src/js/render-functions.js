@@ -5,6 +5,7 @@ const gallery = new SimpleLightbox('.gallery a', {
   /* options */
 });
 const loader = document.querySelector('.loader');
+const ul = document.querySelector('.gallery');
 
 function createGallery(images) {
   const galleryItems = images
@@ -34,22 +35,20 @@ function createGallery(images) {
     </li>`;
     })
     .join('');
-  console.log(galleryItems);
-  const ul = document.querySelector('.gallery');
+
   ul.innerHTML = galleryItems;
   gallery.refresh();
 }
 
 function clearGallery() {
-  const ul = document.querySelector('.gallery');
   if (ul) ul.innerHTML = '';
 }
 
 function showLoader() {
   loader.style.display = 'block';
 }
+
 function hideLoader() {
-  console.log(loader);
   loader.style.display = 'none';
 }
 
