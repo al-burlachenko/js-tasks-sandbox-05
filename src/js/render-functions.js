@@ -1,11 +1,9 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const gallery = new SimpleLightbox('.gallery a', {
-  /* options */
-});
 const loader = document.querySelector('.loader');
 const ul = document.querySelector('.gallery');
+let gallery;
 
 function createGallery(images) {
   const galleryItems = images
@@ -37,6 +35,11 @@ function createGallery(images) {
     .join('');
 
   ul.innerHTML = galleryItems;
+  if (!gallery) {
+    gallery = new SimpleLightbox('.gallery a', {
+      /* options */
+    });
+  }
   gallery.refresh();
 }
 

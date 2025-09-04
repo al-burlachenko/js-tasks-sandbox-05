@@ -18,11 +18,11 @@ formNode.addEventListener('submit', evt => {
   showLoader();
   const formData = new FormData(evt.currentTarget);
   const input = formData.get('search-text');
-
   if (input.trim() === '') {
     iziToast.error({
       title: 'Hey!',
       message: 'Input is empty!',
+      position: 'topRight',
     });
     hideLoader();
     return;
@@ -36,10 +36,17 @@ formNode.addEventListener('submit', evt => {
           title: 'Sorry!',
           message:
             'Sorry, there are no images matching your search query. Please try again!!',
+          position: 'topRight',
         });
       hideLoader();
     })
     .catch(err => {
       hideLoader();
+      console.log(err);
+      iziToast.error({
+        title: 'Error',
+        message: 'Something went wrong. Please try again later.',
+      });
     });
+  evt.currentTarget.reset();
 });
