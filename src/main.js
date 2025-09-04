@@ -17,11 +17,7 @@ formNode.addEventListener('submit', evt => {
   clearGallery();
   showLoader();
   const formData = new FormData(evt.currentTarget);
-  let input = '';
-  formData.forEach((value, name) => {
-    input = value;
-    console.log(name);
-  });
+  const input = formData.get('search-text');
 
   if (input.trim() === '') {
     iziToast.error({
