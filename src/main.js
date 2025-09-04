@@ -20,28 +20,30 @@ formNode.addEventListener('submit', evt => {
   let input = '';
   formData.forEach((value, name) => {
     input = value;
+    console.log(name);
   });
+
   if (input.trim() === '') {
     iziToast.error({
-      title: 'Fuck me!',
-      message: 'Input is empty, bitch!',
+      title: 'Hey!',
+      message: 'Input is empty!',
     });
     hideLoader();
     return;
   }
-
-  getImagesByQuery(input).then(elem => {
-    if (elem.length !== 0) {
+  getImagesByQuery(input)
+    .then(data => {
+      if (data.hits.length !== 0) {
+        createGallery(data.hits);
+      } else
+        iziToast.info({
+          title: 'Sorry!',
+          message:
+            'Sorry, there are no images matching your search query. Please try again!!',
+        });
       hideLoader();
-      createGallery(elem);
-      return;
-    }
-    hideLoader();
-
-    return iziToast.info({
-      title: 'Sorry!',
-      message:
-        'Sorry, there are no images matching your search query. Please try again!!',
+    })
+    .catch(err => {
+      hideLoader();
     });
-  });
 });

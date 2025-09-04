@@ -1,42 +1,20 @@
 import axios from 'axios';
 
-function linkConstruction(query) {
-  let link = 'https://pixabay.com/api/?';
-  const searchArgs = {
-    key: '22701944-f8f056c666d70ac6de5e1d35b',
-    image_type: 'photo',
-    orientation: 'horizontal',
-    safesearch: 'true',
-  };
-  searchArgs.q = query;
-
-  link += Object.keys(searchArgs).reduce(
-    (acc, currentVal) =>
-      (acc +=
-        currentVal +
-        '=' +
-        searchArgs[currentVal].split(' ').join('+').trim() +
-        '&'),
-    ''
-  );
-  return link
-    .split('')
-    .splice(0, link.length - 1)
-    .join('');
-}
-
 export default function getImagesByQuery(query) {
-  return fetch(linkConstruction(query))
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
+  axios.defaults.baseURL = 'https://pixabay.com';
+  return axios
+    .get('/api', {
+      params: {
+        key: '22701944-f8f056c666d70ac6de5e1d35b',
+        image_type: 'photo',
+        orientation: 'horizontal',
+        safesearch: 'true',
+        q: query,
+      },
     })
-    .then(data => {
-      return data.hits;
-    })
+    .then(response => response.data)
     .catch(err => {
-      return err;
+      err;
+      console.log(err);
     });
 }
